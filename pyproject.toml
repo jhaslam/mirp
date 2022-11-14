@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mirp"
+version = "0.1.0"
+description = ""
+authors = ["jhaslam <jhaslam@gmail.com>"]
+readme = "README.md"
+packages = [{include = "mirp", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+kivy = {extras = ["base"], version = "^2.1.0"}
+
+[tool.poetry.group.dev.dependencies]
+buildozer = "^1.4.0"
+cython = "^0.29.32"
+pytest = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
