@@ -1,0 +1,59 @@
+WindowManager:
+    MainScreen:
+    SerialConfigScreen:
+
+<MainScreen>
+    name: "main"
+    BoxLayout:
+        orientation: "vertical"
+        AnchorLayout:
+            size_hint_y: None
+            height: '50dp'
+            anchor_x: "center"
+            anchor_y: "top"
+            Label:
+                text: "Radio Programming Toolkit"
+                size_hint_y: None
+                height: '50dp'
+        AnchorLayout
+            anchor_x: "right"
+            anchor_y: "bottom"
+            Button:
+                text: "Config >"
+                size_hint_y: None
+                height: '50dp'
+                size_hint_x: .3
+                pos_hint: {'right': 1}
+                on_release:
+                    app.root.current = "serialconfig"
+                    root.manager.transition.direction = "left"
+
+<SerialConfigScreen>
+    name: "serialconfig"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            size_hint_y: None
+            height: '50dp'
+            text: "Config Screen"
+        ScrollView:
+            BoxLayout:
+                id: device_list
+                orientation: 'vertical'
+                size_hint_y: None
+                height: max(self.minimum_height, self.parent.height)
+        MDRoundFlatButton:
+            id: btn_list_devices
+            size_hint_y: None
+            height: '50dp'
+            text: 'Scan for serial devices'
+            on_release: root.on_btn_list_devices_release()
+        Button:
+            text: "< Main"
+            size_hint_y: None
+            height: '50dp'
+            size_hint_x: .3
+            pos_hint: {'left': 1}
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction = "right"

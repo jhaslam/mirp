@@ -6,7 +6,7 @@ Here is the tooling that you will need to install to get started:
 - Python 3.10
 - Poetry
 
-## 2. Install Library Prerequisites
+## 2. Library Prerequisites
 Installing these dependencies onto your Ubuntu/Linux system up-front will 
 save you lots of compile-time headaches later   
 ```
@@ -17,7 +17,7 @@ sudo apt install libssl-dev
 ```
 
 
-## 3. Compile Python from Source
+## 3. Compile Python Language from Source
 This compiles a custom version of Python that dynamically links against
 the OpenSSL libraries that you installed in the last step. We will be 
 using this Python rather than the prebuilt one you currently have 
@@ -57,16 +57,67 @@ python -m pip install --upgrade pip
 poetry install --no-root
 ```
 
-## 6. Building the project
+## 6. Building the project for Android
+### Serial Port Dependencies
+Follow the instructions:
+- https://github.com/frmdstryr/kivy-android-serial
+- https://github.com/jacklinquan/usbserial4a
+
+
 ```commandline
 buildozer android debug deploy run
 ```
 The resulting .apk file can be found in ```./bin```
 
-# Troubleshooting
+### Troubleshooting
 Should the buildozer build fail, it is usually because of a missing
 dependency. Should this happen, make sure to run a clean before
 rebuilding:
 ```commandline
 buildozer android clean
+```
+
+### Debugging
+Install the Android Debug Bridge
+
+1) Make sure you have permission for USB access
+   - Check to see if you are part of the "dialout" group
+     ```commandline
+     groups ${USER}
+     ```
+   - Add yourself to the "dialout group if you are not in it
+     (Note: I had to reboot for this to take effect)
+     ```commandline
+     sudo newgrp dialout
+     sudo gpasswd --add ${USER} dialout
+     ```
+
+2) Install ADB
+   ```commandline
+   sudo apt install adb
+   ```
+3) Install the program from the linux command line
+    ```commandline
+     adb install -r bin/*.apk
+    ```
+4) Start the logger
+    ```commandline
+     adb logcat -s "python"
+    ```
+5) Launch the application
+   - You should start to see log files appearing on the screen
+
+
+# device_filter.xml
+put this in:
+```commandline
+.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/mirp/src/main/res/xml/device_filter.xml
+```
+```commandline
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- <usb-device vendor-id="16c0" product-id="0483" />  -->
+    <usb-device vendor-id="0403" product-id="6001" />
+</resources>
 ```

@@ -9,6 +9,11 @@ packages = [{include = "mirp", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 kivy = {extras = ["base"], version = "^2.1.0"}
+usbserial4a = "^0.4.0"
+pyserial = "^3.5"
+usb4a = "^0.2.0"
+pyjnius = "^1.4.2"
+kivymd = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 buildozer = "^1.4.0"
